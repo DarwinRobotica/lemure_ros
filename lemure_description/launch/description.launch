@@ -1,0 +1,12 @@
+<launch>
+  <!-- Args -->
+  <arg name="spawn_imu" default="true" />
+  <arg name="spawn_laser" default="true" />
+  <arg name="spawn_rgb" default="true" />
+
+  <!-- Robot Description -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find lemure_description)/urdf/lemure.urdf.xacro
+      spawn_imu:=$(arg spawn_imu)
+      spawn_laser:=$(arg spawn_laser)
+      spawn_rgb:=$(arg spawn_rgb)" />
+</launch>

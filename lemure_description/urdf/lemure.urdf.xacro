@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lemure">
+  <!-- Include Xacros -->
+  <xacro:include filename="$(find lemure_description)/urdf/body.xacro" />
+  <xacro:include filename="$(find lemure_description)/urdf/transmission.xacro" />
+  <xacro:if value="$(arg spawn_imu)">
+    <xacro:include filename="$(find lemure_description)/urdf/sensors/imu.xacro" />
+  </xacro:if>
+  <xacro:if value="$(arg spawn_laser)">
+    <xacro:include filename="$(find lemure_description)/urdf/sensors/laser.xacro" />
+  </xacro:if>
+  <xacro:if value="$(arg spawn_rgb)">
+    <xacro:include filename="$(find lemure_description)/urdf/sensors/rgb_camera.xacro" />
+  </xacro:if>
+
+  <xacro:base_link />
+  <xacro:spacers />
+  <xacro:motors />
+  <xacro:battery />
+  <xacro:ball_wheels />
+
+  <xacro:wheel side="right" axis="0 1 0" xyz="-0.039 -0.07085 0.02085" rpy="0 1.5708 0" />
+  <xacro:wheel side="left" axis="0 -1 0" xyz="-0.039 0.07085 0.02085" rpy="0 0 3.1416" /> />
+
+  <xacro:transmission_wheel pos="right" />
+  <xacro:transmission_wheel pos="left" />
+
+  <!-- Gazebo Plugins -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
+  </gazebo>
+</robot>

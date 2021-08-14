@@ -1,0 +1,17 @@
+<launch>
+  <!-- Gazebo -->
+  <include file="$(find gazebo_ros)/launch/willowgarage_world.launch" />
+
+  <!-- Spawn Lemure -->
+  <include file="$(find lemure_gazebo)/launch/spawn_lemure.launch" />
+
+  <!-- Launch Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lemure_description)/rviz/lemure_with_sensors.rviz" />
+
+  <!-- Joint Publishers -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Control Node -->
+  <include file="$(find lemure_control)/launch/control.launch" />
+</launch>

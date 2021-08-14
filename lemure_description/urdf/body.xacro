@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="lemure">
+
+    <!-- Base Link -->
+    <xacro:macro name="base_link">
+        <link name="base_link">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="10.45" />
+                <inertia ixx="0.000633" ixy="1E-10" ixz="1E-10" iyy="0.00126" iyz="1E-10" izz="0.000633" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/base_link.STL" />
+                </geometry>
+                <material name="black">
+                    <color rgba="0.3 0.3 0.3 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/base_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="base_link">
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- Spacers -->
+    <xacro:macro name="spacers">
+        <link name="spacers">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="1.5" />
+                <inertia ixx="1E-10" ixy="1E-10" ixz="1E-10" iyy="1E-10" iyz="1E-10" izz="1E-10" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/spacers.STL" />
+                </geometry>
+                <material name="steel">
+                    <color rgba="0.6 0.6 0.6 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/spacers.STL" />
+                </geometry>
+            </collision>
+        </link>
+        <joint name="spacers_joint" type="fixed">
+            <origin xyz="0 0 0.00635" rpy="0 0 0" />
+            <parent link="base_link" />
+            <child link="spacers" />
+            <axis xyz="0 0 0" />
+        </joint>
+        <gazebo reference="spacers">
+            <material>Gazebo/Grey0</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- Motors -->
+    <xacro:macro name="motors">
+        <link name="motors">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="0.054" />
+                <inertia ixx="1E-10" ixy="1E-10" ixz="1E-10" iyy="1E-10" iyz="1E-10" izz="1E-10" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/motors.STL" />
+                </geometry>
+                <material name="steel">
+                    <color rgba="0.6 0.6 0.6 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/motors.STL" />
+                </geometry>
+            </collision>
+        </link>
+        <joint name="motors_link" type="fixed">
+            <origin xyz="-0.039 -0.068 0.021" rpy="1.5708 0 0" />
+            <parent link="base_link" />
+            <child link="motors" />
+            <axis xyz="0 0 0" />
+        </joint>
+        <gazebo reference="motors">
+            <material>Gazebo/Grey0</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- Battery -->
+    <xacro:macro name="battery">
+        <link name="battery">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="0.06" />
+                <inertia ixx="1E-10" ixy="1E-10" ixz="1E-10" iyy="1E-10" iyz="1E-10" izz="1E-10" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/battery.STL" />
+                </geometry>
+                <material name="blue">
+                    <color rgba="0 0.24 0.82 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/battery.STL" />
+                </geometry>
+            </collision>
+        </link>
+        <joint name="battery_joint" type="fixed">
+            <origin xyz="0.074349 0.03476 0.00635" rpy="0 0 0" />
+            <parent link="base_link" />
+            <child link="battery" />
+            <axis xyz="0 0 0" />
+        </joint>
+        <gazebo reference="battery">
+            <material>Gazebo/Blue</material>
+        </gazebo>
+    </xacro:macro>
+
+    <!-- Ball Wheeels -->
+    <xacro:macro name="ball_wheels">
+        <link name="ball_wheels">
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <mass value="3.0" />
+                <inertia ixx="1E-10" ixy="1E-10" ixz="1E-10" iyy="1E-10" iyz="1E-10" izz="1E-10" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/caster_wheels.STL" />
+                </geometry>
+                <material name="black">
+                    <color rgba="0.3 0.3 0.3 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://lemure_description/meshes/caster_wheels.STL" />
+                </geometry>
+            </collision>
+        </link>
+        <joint name="ball_wheels_joint" type="fixed">
+            <origin xyz="0.039851 -0.05985 -0.0052705" rpy="3.1416 0 0" />
+            <parent link="base_link" />
+            <child link="ball_wheels" />
+            <axis xyz="0 0 0" />
+        </joint>
+        <gazebo reference="ball_wheels">
+            <mu1>0</mu1>
+            <mu2>0</mu2>
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>
+    
+    <!-- Wheel -->
+    <xacro:macro name="wheel" params="side axis xyz rpy">
+        <link name="${side}_wheel">
+            <inertial>
+              <origin xyz="0 0 0" rpy="0 0 0" />
+              <mass value="3.02" />
+              <inertia ixx="6.8E-06" ixy="-2E-13" ixz="-1.8E-12" iyy="1.4E-05" iyz="4E-10" izz="6.8E-06" />
+            </inertial>
+            <visual>
+              <origin xyz="0 0 0" rpy="0 0 0" />
+              <geometry>
+                <mesh filename="package://lemure_description/meshes/wheel.STL" />
+              </geometry>
+              <material name="">
+                <color rgba="0.1 0.1 0.1 1" />
+              </material>
+            </visual>
+            <collision>
+              <origin xyz="0 0 0" rpy="1.5708 0 0" />
+              <geometry>
+                <cylinder length="0.005" radius="0.038" />
+              </geometry>
+            </collision>
+          </link>
+          <joint name="${side}_wheel_joint" type="continuous">
+            <origin xyz="${xyz}" rpy="${rpy}" />
+            <parent link="base_link" />
+            <child link="${side}_wheel" />
+            <axis xyz="${axis}" />
+            <dynamics damping="0.5" friction="100.0"/>
+          </joint>
+          <gazebo reference="${side}_wheel">
+            <mu1>10</mu1>
+            <mu2>10</mu2>
+            <material>Gazebo/Black</material>
+          </gazebo>
+    </xacro:macro>
+</robot>

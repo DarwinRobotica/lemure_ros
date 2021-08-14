@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="lemure">
+    <xacro:macro name="transmission_wheel" params="pos">
+        <transmission name="${pos}_wheel_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <actuator name="${pos}_wheel_motor">
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+            <joint name="${pos}_wheel_joint">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+        </transmission>
+    </xacro:macro>
+</robot>

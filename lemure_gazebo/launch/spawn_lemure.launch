@@ -1,0 +1,25 @@
+<launch>
+    <!-- Args -->
+    <arg name="x" default="0.0" />
+    <arg name="y" default="0.0" />
+    <arg name="z" default="0.1" />
+
+    <arg name="model_name" default="/lemure" />
+
+    <arg name="spawn_imu" default="true" />
+    <arg name="spawn_laser" default="true" />
+    <arg name="spawn_rgb" default="true" />
+
+    <!-- Robot Description -->
+    <include file="$(find lemure_description)/launch/description.launch">
+        <arg name="spawn_imu" value="$(arg spawn_imu)" />
+        <arg name="spawn_laser" value="$(arg spawn_laser)" />
+        <arg name="spawn_rgb" value="$(arg spawn_rgb)" />
+    </include>
+  
+    <!-- Spawn Lemure -->
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model $(arg model_name)
+        -x $(arg x)
+        -y $(arg y)
+        -z $(arg z)" output="screen" />
+  </launch>

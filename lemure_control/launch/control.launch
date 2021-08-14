@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Load controller config -->
+  <rosparam file="$(find lemure_control)/config/control.yml" command="load" />
+
+  <!-- Start controller -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="lemure_velocity_controller lemure_state_controller">
+  </node>
+
+  <!-- Localization -->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <rosparam command="load" file="$(find lemure_control)/config/localization.yml" />
+  </node>
+</launch>

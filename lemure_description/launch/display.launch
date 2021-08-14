@@ -1,0 +1,20 @@
+<launch>
+  <!-- Args -->
+  <arg name="spawn_imu" default="true" />
+  <arg name="spawn_laser" default="true" />
+  <arg name="spawn_rgb" default="true" />
+  
+  <!-- Robot Description -->
+  <include file="$(find lemure_description)/launch/description.launch">
+    <arg name="spawn_imu" value="$(arg spawn_imu)" />
+    <arg name="spawn_laser" value="$(arg spawn_laser)" />
+    <arg name="spawn_rgb" value="$(arg spawn_rgb)" />
+  </include>
+  
+  <!-- Joint Publishers -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find lemure_description)/rviz/lemure.rviz" />
+</launch>
